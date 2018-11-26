@@ -20,7 +20,6 @@ def process_json(session, user):
     first_time = 0
     windows_present = 0
 
-
     if os.system("tmux has-session -t %s" % (session)):
         json_data = json.load(open(session))
         os.system("tmux -2 new-session -d -s %s" % (session))
@@ -79,6 +78,7 @@ def process_json(session, user):
         os.system("tmux -2 attach -t %s" % (session))
 
 def main():
+    default_session_path = '/Users/mfox/Data/tgo-sessions/'
 
     if len(sys.argv) == 1:
         os.system("tmux ls")
@@ -90,6 +90,7 @@ def main():
     if args.debug == True:
         logging.basicConfig(level=logging.DEBUG)
 
+    args.session_file = default_session_path + args.session_file
     logging.debug("session file: %s", args.session_file)
     logging.debug("user: %s", args.user)
 
